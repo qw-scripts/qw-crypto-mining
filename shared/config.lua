@@ -14,7 +14,7 @@ Config.MenuMaxZ = 55.77 -- The maximum Z value of the zone the menu will be loca
 Config.OxBoxSize =  vec3(2, 2, 2)
 Config.OxBoxRotation = 45
 
-Config.UsingOxLib = true -- If you are using ox_lib, set this to true
+Config.UsingOxLib = false -- If you are using ox_lib, set this to true
 Config.UsingOxTarget = false -- If you are using ox_target, set this to true
 
 Config.CryptoUpgrades = { -- Add any upgrades you want here, always make sure to have the first upgrade be None
