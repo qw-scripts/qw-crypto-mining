@@ -1,0 +1,1 @@
+# qw-crypto-mining
