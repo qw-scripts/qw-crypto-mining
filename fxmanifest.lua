@@ -16,7 +16,7 @@ server_scripts {
 
 shared_scripts { 
     'shared/**/*',
-    '@ox_lib/init.lua' -- if you are using ox_lib, uncomment this line
+    -- '@ox_lib/init.lua' -- if you are using ox_lib, uncomment this line
  }
 
 lua54 'yes'
