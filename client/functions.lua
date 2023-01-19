@@ -100,7 +100,7 @@ function generateComponentUpgradeMenu(component, currentUpgrade)
         if not Config.UsingOxLib then
             menu[#menu + 1] = {
                 header = v.name,
-                txt = 'Hash Rate: ' .. v.hashRate .. ' | Power Usage: ' .. v.powerUsage,
+                txt = 'Hash Rate: ' .. v.hashRate .. ' | Power Usage: ' .. v.powerUsage .. ' | Cost: $' .. v.price,
                 disabled = k == currentUpgrade,
                 params = {
                     isServer = true,
@@ -114,7 +114,7 @@ function generateComponentUpgradeMenu(component, currentUpgrade)
         else
             menu[#menu + 1] = {
                 title = v.name,
-                description = 'Hash Rate: ' .. v.hashRate .. ' | Power Usage: ' .. v.powerUsage,
+                description = 'Hash Rate: ' .. v.hashRate .. ' | Power Usage: ' .. v.powerUsage .. ' | Cost: $' .. v.price,
                 disabled = k == currentUpgrade,
                 onSelect = function()
                     lib.hideContext()

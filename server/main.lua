@@ -121,19 +121,14 @@ RegisterNetEvent('qw-crypto-mining:server:sellRig', function()
     TriggerClientEvent('QBCore:Notify', src, 'You have sold your mining rig for $' .. totalValue, 'success')
 end)
 
-RegisterNetEvent('qw-crypto-mining:server:removeFromCache', function()
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    
-    if not Player then return end
-    
-    local citizenId = Player.PlayerData.citizenid
-
+RegisterNetEvent('qw-crypto-mining:server:removeFromCache', function(citizenId)
     if PlayerCryptoCache[citizenId] ~= nil then
 
         PlayerCryptoCache[citizenId] = nil
 
         if Config.Debug then print('Removing ' .. citizenId .. ' from cache') end
+    else
+        if Config.Debug then print('No data found for ' .. citizenId) end
     end
 end)
 
@@ -201,6 +196,7 @@ function ChargeForPower()
 end
 
 RegisterNetEvent("qw-crypto-mining:server:startPayoutClock", function()
+    if Config.Debug then print('Starting payout clock') end
     CreateThread(function()
         while true do
             Citizen.Wait(Config.MiningInterval * 1000)
@@ -210,10 +206,29 @@ RegisterNetEvent("qw-crypto-mining:server:startPayoutClock", function()
 end)
 
 RegisterNetEvent("qw-crypto-mining:server:startPowerUsageClock", function()
+    if Config.Debug then print('Starting power usage clock') end
     CreateThread(function()
         while true do
             Citizen.Wait(Config.PowerUsageInterval * 1000)
             ChargeForPower()
         end
     end)
+end)
+
+AddEventHandler('playerDropped', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    
+    if not Player then return end
+    
+    local citizenId = Player.PlayerData.citizenid
+
+    TriggerEvent('qw-crypto-mining:server:removeFromCache', citizenId)
+end)
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() == resourceName then
+        TriggerEvent('qw-crypto-mining:server:startPayoutClock')
+        TriggerEvent('qw-crypto-mining:server:startPowerUsageClock')
+    end
 end)

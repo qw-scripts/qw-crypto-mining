@@ -47,15 +47,9 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     createMenuZone()
 end)
 
-RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
-    TriggerServerEvent('qw-crypto-mining:server:removeFromCache')
-end)
-
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
         createMenuZone()
-        TriggerServerEvent('qw-crypto-mining:server:startPayoutClock')
-        TriggerServerEvent('qw-crypto-mining:server:startPowerUsageClock')
     end
 end)
 
